@@ -12,24 +12,8 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
-
-//Route::get('/', function () {
-    //return view('registrar_consola');
-//});
-Route::view("/", "registrar_consola")->name("registrar_consola");
-//Route::get("/registrar_juego", function(){
-    //return view("registrar_juego");
-//});
-Route::view("/registrar_juego", "registrar_juego")->name("registrar_juego");
-//Route::get("/registrar_consola", function(){
-    //return view("registrar_consola");
-//});
-Route::view("/registrar_consola", "registrar_consola")->name("registrar_consola");
-//Route::get("/ver_consolas", function(){
-    //return view("ver_consolas");
-//});
+//Route::view(Ruta, Nombre de vista sin blade.php)->name(nombre de ruta que se usa en Route);
+Route::view("/", "home")->name("home");
 Route::view("/ver_consolas", "ver_consolas")->name("ver_consolas");
-//Route::get("/ver_juegos", function(){
-    //return view("ver_juegos");
-//});
 Route::view("/ver_juegos", "ver_juegos")->name("ver_juegos");
+Route::view("/agregar_juegos", "agregar_juegos")->name("agregar_juegos");
