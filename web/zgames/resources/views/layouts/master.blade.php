@@ -38,5 +38,7 @@
       <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
       <script src="{{asset('js/axios_config.js')}}"></script>
 
+      @yield("javascript")
+
     </body>
 </html>
