@@ -13,8 +13,13 @@ class CrearTablaConsolas extends Migration
      */
     public function up()
     {
+        //Modelo orientado a Objeto:
+        //Base de datos relacional + programacion orientada a objetos
+        //MySQL + Eloquent (ORM del modelo de laravel) **ORM**= Object Relational Maping
+        //**En español** = Crear clases para que se cree sola la tabla 
         Schema::create('consolas', function (Blueprint $table) {
-            $table->id();
+            $table->id(); //Secuencias, Autoincrementales
+            //Autoincrementales: Claves unicas generadas automaticamente por la maquina
             $table->string("nombre", 150);
             $table->string("marca", 50);
             $table->integer("anio");
