@@ -11,8 +11,11 @@ const cargarMarcas = async()=>{
     });
 
 };
-
-cargarMarcas();
+// Esto ejecuta un codigo asegurandose que el total de la pagina
+// Incluidos todos sus recursos este cargado antes de ejecutar 
+document.addEventListener("DOMContentLoaded", ()=>{
+    cargarMarcas();
+});
 
 document.querySelector("#registrar-btn").addEventListener("click", async ()=>{
     let nombre = document.querySelector("#nombre-txt").value;
@@ -28,8 +31,14 @@ document.querySelector("#registrar-btn").addEventListener("click", async ()=>{
     //1. Va al Controlador, le pasa los datos
     //2. El controlador crea el modelo 
     //3. El modelo ingresa en la base de datos
-    let res = await crearConsola(consolas);
-    Swal.fire("Consola Creada", "Consola Creada Exitosamente", "info");
+    let res = await crearConsola(consola);
+    await Swal.fire("Consola Creada", "Consola Creada Exitosamente", "info");
+    // La linea que viene despues del Swal.fire se va a ejecutar solo cuando la persona aprete el OK
+    // Aqui voy a redirigir a otra pagina 
+    window.location.href = "ver_consolas";
+
+    // Abrir nueva pestaña
+    // window.open("www.google.cl", "_blank");
 });
 
 
