@@ -42,6 +42,18 @@ class ConsolasController extends Controller
         $consola->save();
         return $consola;
     }
+
+    public function eliminarConsola(Request $request){
+       $input = $request->all(); 
+       $id = $input["id"];
+       // Eloquent: El administrador de BD de Laravel se llama Eloquent
+       //1. Ir a buscar el registro a la bd 
+       $consola = Consola::FindOrFail($id);
+       //2. Para eliminar llamo al metodo delete
+       $consola->delete(); //DELETE FROM consolas WHERE id=1
+       return "ok";
+    }
+
 }
 //view productos.blade.php 
 //renderizar los productos
