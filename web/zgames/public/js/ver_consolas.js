@@ -1,6 +1,6 @@
-const cargarMarcas = async ()=>{
+const cargarMarcas = async (select)=>{
     //1. Ir a buscar el filtro-cbx
-    let filtroCbx = document.querySelector("#filtro-cbx");
+    let filtroCbx = select;
     //2. Ir a buscar las marcas
     let marcas = await getMarcas();
     marcas.forEach(m=>{
@@ -8,6 +8,36 @@ const cargarMarcas = async ()=>{
         option.innerText = m;
         option.value = m;
         filtroCbx.appendChild(option);
+    });
+};
+
+const actualizar = async function(){
+    let idConsola = this.idConsola;
+    let consola = await findById(idConsola);
+    let molde = this.parentNode.parentNode;
+    consola.nombre = molde.querySelector(".nombre-txt").value;
+    consola.marca = molde.querySelector(".marca-select").value;
+    consola.anio = molde.querySelector(".anio-txt").value;
+    await actualizarConsola(consola);
+    await Swal.close();
+    let filtro = document.querySelector("#filtro-cbx").value;
+    let consolas = await getConsolas(filtro);
+    cargarTabla(consolas);
+};
+
+const iniciarActualizacion = async function(){
+    let idConsola = this.idConsola;
+    let consola = await findById(idConsola);
+    let molde = document.querySelector(".molde-actualizar").cloneNode(true);
+    molde.querySelector(".nombre-txt").value = consola.nombre;
+    molde.querySelector(".marca-select").value = consola.marca;
+    molde.querySelector(".anio-txt").value = consola.anio;
+    molde.querySelector(".actualizar-btn").idConsola = idConsola;
+    molde.querySelector(".actualizar-btn").addEventListener("click", actualizar);
+    await Swal.fire({
+        title:"Actualizar",
+        html: molde,
+        confirmButtonText: "Cerrar"
     });
 };
 
@@ -47,6 +77,11 @@ const cargarTabla = (consolas)=>{
         let tdAnio = document.createElement("td");
         tdAnio.innerText = consolas[i].anio;
         let tdAcciones = document.createElement("td");
+        let botonActualizar = document.createElement("button");
+        botonActualizar.innerText = "Actualizar";
+        botonActualizar.classList.add("btn", "btn-info");
+        botonActualizar.idConsola = consolas[i].id;
+        botonActualizar.addEventListener("click", iniciarActualizacion);
         let botonEliminar = document.createElement("button");
         botonEliminar.innerText = "Eliminar";
         botonEliminar.classList.add("btn", "btn-danger");
@@ -74,7 +109,8 @@ document.addEventListener("DOMContentLoaded", async ()=>{
     // Aqui voy a cargar la lista de consolas, porque si entra aqui 
     // Lo que haga en esta parte estoy seguro que se esta ejecutando
     // Cuando la pagina esta totalmente cargada 
-    await cargarMarcas();
+    await cargarMarcas(document.querySelector("#filtro-cbx"));
+    await cargarMarcas(document.querySelector(".marca-select"));
     let consolas = await getConsolas();
     cargarTabla(consolas);
 });
