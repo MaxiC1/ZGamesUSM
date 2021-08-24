@@ -62,6 +62,16 @@ class ConsolasController extends Controller
        return "ok";
     }
 
+    public function actualizarConsola(Request $request){
+        $input = $request->all(); 
+        $id = $input["id"];
+        $consola = Consola::FindOrFail($id);
+        $consola->nombre = $input["nombre"];
+        $consola->marca = $input["marca"];
+        $consola->anio = $input["anio"];
+        $consola->save();
+        return $consola;
+    }
 }
 //view productos.blade.php 
 //renderizar los productos

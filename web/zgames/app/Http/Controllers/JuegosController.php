@@ -14,7 +14,7 @@ class JuegosController extends Controller
     public function getJuegosByConsola(Request $request){
         $input = $request->all();
         $idConsola = $input["idConsola"];
-        $consola = Consola::find($idConsola);
+        $consola = Consola::findOrFail($idConsola);
         return $consola->juegos()->get();
     }
 
